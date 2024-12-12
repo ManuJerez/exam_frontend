@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 @Configuration
 public class FirebaseConfig {
@@ -17,7 +19,8 @@ public class FirebaseConfig {
 
     @PostConstruct
     public void FirebaseConfig() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream(serviceAccountKey);
+        //FileInputStream serviceAccount = new FileInputStream(serviceAccountKey);
+        InputStream serviceAccount = new ByteArrayInputStream(serviceAccountKey.getBytes());
 
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
