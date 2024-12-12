@@ -14,17 +14,6 @@ code {
     monospace;
 }
 
-h2 {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-button {
-  padding: 10px 20px;
-  font-size: medium;
-}
-
 nav {
   position: fixed;
   top: 0;
@@ -88,4 +77,37 @@ main {
 
 .login-button:hover {
   background-color: #357AE8; /* Color azul más oscuro */
+}
+
+.container {
+  display: flex; /* Activa el diseño flexbox */
+  justify-content: space-between; /* Espacio entre el mapa y los demás elementos */
+  align-items: flex-start; /* Alinea los elementos al inicio vertical */
+  margin: 20px; /* Espaciado alrededor del contenedor */
+}
+
+.map {
+  flex: 2; /* Ocupa más espacio en el diseño */
+  height: 300px; /* Altura fija para el mapa */
+  margin-right: 20px; /* Espacio entre el mapa y los demás elementos */
+  border: 1px solid #ccc; /* Borde para resaltar el mapa */
+  border-radius: 5px; /* Bordes redondeados */
+  overflow: hidden; /* Evita que el contenido se salga del borde */
+}
+
+.right-container {
+  flex: 1; /* Ocupa menos espacio */
+  display: flex; /* Flexbox interno para alinear los elementos */
+  flex-direction: column; /* Coloca los elementos en una columna */
+  gap: 15px; /* Espaciado entre los elementos */
+}
+
+.image, .upload {
+  height: 100px; /* Tamaño reducido */
+  border: 1px solid #ccc; /* Borde para destacar */
+  border-radius: 5px; /* Bordes redondeados */
+  display: flex; /* Centra el contenido */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  background-color: #f9f9f9; /* Fondo claro */
 }
