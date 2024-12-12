@@ -1,7 +1,7 @@
 import { signOut } from 'firebase/auth'
 import React from 'react'
 import { auth } from '../firebase/firebase'
-import { useAuth } from './AuthContext'
+import { useAuth } from '../context/AuthContext'
 
 const NavBar = () => {
   const { user } = useAuth();

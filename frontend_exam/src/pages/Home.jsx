@@ -1,6 +1,6 @@
 import React from 'react'
-import OpenStreetMap from './Map';
-import { useAuth } from './AuthContext';
+import OpenStreetMap from '../components/Map';
+import { useAuth } from '../context/AuthContext';
 
 const Home = () => {
   const { user } = useAuth();
