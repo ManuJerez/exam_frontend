@@ -3,6 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+exam-frontend-dbbdf-firebase-adminsdk-x3d2k-af117db60c.json
 
 ### STS ###
 .apt_generated

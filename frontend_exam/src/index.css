@@ -1,13 +1,91 @@
 body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: medium;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 20px;
+  background-color: #4285F4; /* Azul de Google */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  z-index: 1000; /* Asegura que esté por encima del resto del contenido */
+  box-sizing: border-box;
+}
+
+nav a {
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav button {
+  background-color: #ff4d4d; /* Rojo atractivo para el botón */
+  color: white;
+  font-size: 1rem;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+main {
+  margin-top: 80px; /* Añadimos suficiente espacio */
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-container {
+  text-align: center;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.login-button {
+  background-color: #4285F4; /* Color azul de Google */
+  color: white;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #357AE8; /* Color azul más oscuro */
 }
