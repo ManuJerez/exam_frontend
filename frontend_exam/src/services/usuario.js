@@ -19,15 +19,19 @@ const autenticarUsuario = async (user) => {
   });
 
   try {
-    await authAxios.get('/usuario/autenticacion')
+    await authAxios.get('usuario/autenticacion')
   } catch (error) {
     console.error("Usuario no autenticado: ", error);
   }
 }
 
 const getLugaresByUsuario = async (user, setLugares) => {
-  const res = await axios.get(API_REST_URL + '/lugar/' + user.email);
+  const res = await axios.get(API_REST_URL + 'lugar/' + user);
   setLugares(res.data);
 }
 
-export const usuarioService = { loginUsuario, autenticarUsuario, getLugaresByUsuario }
+const addLugar = async (user, direccion) => {
+  await axios.put(API_REST_URL + 'lugar?emailUsuario=' + user + '&direccion=' + direccion);
+}
+
+export const usuarioService = { loginUsuario, autenticarUsuario, getLugaresByUsuario, addLugar }

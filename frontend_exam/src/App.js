@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import ProtectedRoute from './context/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import NavBar from './components/NavBar';
+import AnyadirLugar from './pages/AnyadirLugar';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path='/login' element={<Login />} />
+          <Route path='/addLugar' element={<AnyadirLugar />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

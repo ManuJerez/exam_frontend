@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useAuth } from '../context/AuthContext';
 import { usuarioService } from '../services/usuario';
+import Imagen from './Imagen';
 
 const OpenStreetMap = () => {
   const position = [54.5260, 15.2551];
@@ -36,6 +37,7 @@ const OpenStreetMap = () => {
         <Marker position={[lugar.lat, lugar.lon]} icon={customIcon}>
           <Popup>
             {lugar.nombre}
+            <Imagen imageUri={lugar.imagen} />
           </Popup>
         </Marker>
       ))}

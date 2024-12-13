@@ -6,6 +6,8 @@ import com.ingweb.backend.model.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class UsuarioService {
 
@@ -21,9 +23,8 @@ public class UsuarioService {
     private UsuarioDTO handleRegistro(UsuarioDTO usuarioDTO) {
         Usuario usuario = new Usuario();
         usuario.setUid(usuarioDTO.getUid());
-        usuario.setNombre(usuarioDTO.getNombre());
         usuario.setEmail(usuarioDTO.getEmail());
-        usuario.setContrasenya("12345");
+        usuario.setLugares(new ArrayList<>());
         usuarioRepository.save(usuario);
         return usuario.toDto();
     }

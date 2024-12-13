@@ -36,24 +36,19 @@ public class Controller {
         return firebaseService.verifyToken(authValue);
     }
 
-    @GetMapping("/lugar/{usuario}")
+    @GetMapping("/lugar/{usuarioEmail}")
     public List<LugarDTO> getLugaresByUsuario(@PathVariable("usuarioEmail") String usuarioEmail){
         return lugarService.getLugaresByUsuario(usuarioEmail);
     }
 
     @PutMapping("/lugar")
-    public LugarDTO crearLugar(@RequestParam String emailUsuario,@RequestBody LugarDTO lugarDTO) {
-        return lugarService.crearLugar(emailUsuario,lugarDTO);
+    public void crearLugar(@RequestParam String emailUsuario,@RequestParam String direccion) {
+        mapaService.anyadirUbicacion(emailUsuario, direccion);
     }
 
     @GetMapping("/ubicacion")
     public UbicacionDTO getUbicacion(@RequestParam String direccion) {
         return mapaService.getCoordenadas(direccion);
-    }
-
-    @PutMapping("/ubicacion/{nombreEvento}")
-    public void anyadirUbicacion(@PathVariable("nombreEvento") String nombreEvento, @RequestParam String direccion){
-        mapaService.anyadirUbicacion(nombreEvento, direccion);
     }
 
 }

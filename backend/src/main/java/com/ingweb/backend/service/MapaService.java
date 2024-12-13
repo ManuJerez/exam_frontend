@@ -37,6 +37,7 @@ public class MapaService {
         Usuario usuario = usuarioRepository.findByEmailIgnoreCase(usuarioEmail);
 
         LugarDTO lugarDTO = new LugarDTO();
+        lugarDTO.setNombre(direccion);
         lugarDTO.setLat(ubicacionDTO.getLat());
         lugarDTO.setLon(ubicacionDTO.getLon());
 

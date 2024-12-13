@@ -25,7 +25,7 @@ const Home = () => {
           <OpenStreetMap />
         </div>
       </div>
-      <button onClick={() => gotoAddLugar(user)}>Ver mis eventos</button>
+      <button onClick={() => gotoAddLugar(user)}>Añadir lugar</button>
     </>
   )
 }
