@@ -87,6 +87,8 @@ public class Evento implements DTO<EventoDTO> {
     @Override
     public EventoDTO toDto() {
         EventoDTO eventoDTO = new EventoDTO();
+        String idDto = this.id.toHexString();
+        eventoDTO.setId(idDto);
         eventoDTO.setNombre(this.nombre);
         eventoDTO.setTimestamp(this.timestamp);
         eventoDTO.setLugar(this.lugar);

@@ -4,16 +4,42 @@ import com.ingweb.backend.dao.EventoRepository;
 import com.ingweb.backend.model.dto.EventoDTO;
 import com.ingweb.backend.model.dto.UbicacionDTO;
 import com.ingweb.backend.model.entity.Evento;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
-public class EventoService {
+public class EventoService extends DTOService<EventoDTO, Evento> {
 
     @Autowired
     private EventoRepository eventoRepository;
     @Autowired
     private MapaService mapaService;
+    @Autowired
+    private FirebaseService firebaseService;
+
+    public EventoDTO getEvento(ObjectId id){
+        Evento evento = eventoRepository.findById(id).orElse(null);
+        return evento.toDto();
+    }
+
+    public List<EventoDTO> getEventosProximos(String direccion) throws UnsupportedEncodingException {
+        List<EventoDTO> eventos = new ArrayList<>();
+        String direccionDecoded = URLDecoder.decode(direccion, "UTF-8");
+        UbicacionDTO ubicacionDTO = mapaService.getCoordenadas(direccionDecoded);
+        List<Evento> eventosProximos = eventoRepository.findByLatAndLonOrderByTimestamp(ubicacionDTO.getLat(), ubicacionDTO.getLon());
+        return entidadesADTO(eventosProximos);
+    }
+
+    public List<EventoDTO> getEventosByOrganizador(String organizador){
+        List<Evento> eventosByOrganizador = eventoRepository.findByOrganizador(organizador);
+        return entidadesADTO(eventosByOrganizador);
+    }
 
     public EventoDTO crearEvento(EventoDTO eventoDTO) {
         Evento evento = new Evento();
@@ -32,7 +58,7 @@ public class EventoService {
         return evento.toDto();
     }
 
-    public EventoDTO modificarEvento(String nombreEvento, EventoDTO eventoDTO){
+    public EventoDTO modificarEvento(String nombreEvento, EventoDTO eventoDTO) {
         Evento evento = eventoRepository.findByNombre(nombreEvento);
         if(evento != null){
             if(eventoDTO.getNombre() != null){
@@ -47,9 +73,6 @@ public class EventoService {
                 evento.setLat(ubicacionDTO.getLat());
                 evento.setLon(ubicacionDTO.getLon());
             }
-            if(eventoDTO.getOrganizador() != null){
-                evento.setOrganizador(eventoDTO.getOrganizador());
-            }
             if(eventoDTO.getImagen() != null){
                 evento.setImagen(eventoDTO.getImagen());
             }
@@ -60,7 +83,7 @@ public class EventoService {
         return evento.toDto();
     }
 
-    public void borrarEvento(String nombreEvento){
+    public void borrarEvento(String nombreEvento) {
         Evento evento = eventoRepository.findByNombre(nombreEvento);
         if(evento != null){
             eventoRepository.delete(evento);

@@ -12,7 +12,7 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public UsuarioDTO registarUsuario(UsuarioDTO usuarioDTO) {
+    public UsuarioDTO registrarUsuario(UsuarioDTO usuarioDTO) {
         Usuario usuario = usuarioRepository.findByEmailIgnoreCase(usuarioDTO.getEmail());
 
         return usuario != null ? handleInicio(usuarioDTO) : handleRegistro(usuarioDTO);

@@ -3,6 +3,7 @@ package com.ingweb.backend.model.dto;
 import java.time.LocalDateTime;
 
 public class EventoDTO {
+    private String id;
     private String nombre;
     private LocalDateTime timestamp;
     private String lugar;
@@ -10,6 +11,14 @@ public class EventoDTO {
     private double lon;
     private String organizador;
     private String imagen;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;

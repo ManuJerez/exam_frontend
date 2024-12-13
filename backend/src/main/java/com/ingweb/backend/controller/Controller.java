@@ -8,11 +8,15 @@ import com.ingweb.backend.service.EventoService;
 import com.ingweb.backend.service.FirebaseService;
 import com.ingweb.backend.service.MapaService;
 import com.ingweb.backend.service.UsuarioService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class Controller {
 
     @Autowired
@@ -26,12 +30,27 @@ public class Controller {
 
     @PostMapping("/usuario/registroGoogle")
     public UsuarioDTO registroGoogle(@RequestBody UsuarioDTO usuarioDTO) {
-        return usuarioService.registarUsuario(usuarioDTO);
+        return usuarioService.registrarUsuario(usuarioDTO);
     }
 
     @GetMapping("/usuario/autenticacion")
-    public UsuarioDTO identificarUsuario(@RequestParam String idToken) throws FirebaseAuthException {
-        return firebaseService.verifyToken(idToken);
+    public UsuarioDTO identificarUsuario(@RequestHeader("Authorization") String authValue) throws FirebaseAuthException {
+        return firebaseService.verifyToken(authValue);
+    }
+
+    @GetMapping("/evento/{id}")
+    public EventoDTO getEvento(@PathVariable("id") ObjectId id){
+        return eventoService.getEvento(id);
+    }
+
+    @GetMapping("/evento/proximos")
+    public List<EventoDTO> getEventosProximos(@RequestParam("direccion") String direccion) throws UnsupportedEncodingException {
+        return eventoService.getEventosProximos(direccion);
+    }
+
+    @GetMapping("/evento/organizador/{organizador}")
+    public List<EventoDTO> getEventosByOrganizador(@PathVariable("organizador") String organizador){
+        return eventoService.getEventosByOrganizador(organizador);
     }
 
     @PostMapping("/evento")
@@ -40,12 +59,12 @@ public class Controller {
     }
 
     @PutMapping("/evento/{nombreEvento}")
-    public EventoDTO modificarEvento(@PathVariable("nombreEvento") String nombreEvento, @RequestBody EventoDTO eventoDTO){
+    public EventoDTO modificarEvento(@PathVariable("nombreEvento") String nombreEvento, @RequestBody EventoDTO eventoDTO) {
         return eventoService.modificarEvento(nombreEvento, eventoDTO);
     }
 
     @DeleteMapping("/evento/{nombreEvento}")
-    public void borrarEvento(@PathVariable("nombreEvento") String nombreEvento){
+    public void borrarEvento(@PathVariable("nombreEvento") String nombreEvento) {
         eventoService.borrarEvento(nombreEvento);
     }
 

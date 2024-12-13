@@ -15,8 +15,9 @@ public class FirebaseService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public UsuarioDTO verifyToken(String idToken) throws FirebaseAuthException {
-        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
+    public UsuarioDTO verifyToken(String authValue) throws FirebaseAuthException {
+        String token = authValue.replace("Bearer ", "").trim();
+        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
         String uid = decodedToken.getUid();
         Usuario usuario = new Usuario();
         if (uid != null) {

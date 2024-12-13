@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import ProtectedRoute from './context/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import NavBar from './components/NavBar';
+import MisEventos from './pages/MisEventos';
+import VistaEvento from './pages/VistaEvento';
 
 function App() {
   return (
@@ -12,8 +14,10 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <Routes>
-          <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/misEventos' element={<ProtectedRoute><MisEventos /></ProtectedRoute>} />
+          <Route path='/evento/:id' element={<VistaEvento />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
