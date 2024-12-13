@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useAuth } from '../context/AuthContext';
 import OpenStreetMap from '../components/Map';
 import { usuarioService } from '../services/usuario';
@@ -22,10 +22,11 @@ const Home = () => {
       <h1>Mapa de {user.email}</h1>
       <div className='container'>
         <div className='map'>
-          <OpenStreetMap />
+          <OpenStreetMap user={user} />
         </div>
       </div>
       <button onClick={() => gotoAddLugar(user)}>Añadir lugar</button>
+      <button onClick={() => navigate('/explore')}>Explorar otros mapas</button>
     </>
   )
 }

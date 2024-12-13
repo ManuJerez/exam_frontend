@@ -34,4 +34,9 @@ const addLugar = async (user, direccion) => {
   await axios.put(API_REST_URL + 'lugar?emailUsuario=' + user + '&direccion=' + direccion);
 }
 
-export const usuarioService = { loginUsuario, autenticarUsuario, getLugaresByUsuario, addLugar }
+const getUsuarioByEmail = async (emailUsuario, setUsuarioVisitado) => {
+  const res = await axios.get(API_REST_URL + 'usuario?email=' + emailUsuario);
+  setUsuarioVisitado(res.data);
+}
+
+export const usuarioService = { loginUsuario, autenticarUsuario, getLugaresByUsuario, addLugar, getUsuarioByEmail }

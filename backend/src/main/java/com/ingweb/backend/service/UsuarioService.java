@@ -33,4 +33,9 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findByEmailIgnoreCase(usuarioDTO.getEmail());
         return usuario.toDto();
     }
+
+    public UsuarioDTO getUsuarioByEmail(String email){
+        Usuario usuario = usuarioRepository.findByEmailIgnoreCase(email);
+        return usuario.toDto();
+    }
 }

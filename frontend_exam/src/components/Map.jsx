@@ -2,15 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { useAuth } from '../context/AuthContext';
 import { usuarioService } from '../services/usuario';
 import Imagen from './Imagen';
 
-const OpenStreetMap = () => {
-  const position = [54.5260, 15.2551];
+const OpenStreetMap = ({user}) => {
+  const position = [40.4167047, -3.7035825];
   const [lugares, setLugares] = useState([]);
-
-  const {user} = useAuth();
 
   useEffect(() => {
     usuarioService.getLugaresByUsuario(user.email, setLugares);

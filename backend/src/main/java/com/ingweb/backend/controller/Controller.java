@@ -36,6 +36,11 @@ public class Controller {
         return firebaseService.verifyToken(authValue);
     }
 
+    @GetMapping("/usuario")
+    public UsuarioDTO getUsuarioByEmail(@RequestParam("email") String email){
+        return usuarioService.getUsuarioByEmail(email);
+    }
+
     @GetMapping("/lugar/{usuarioEmail}")
     public List<LugarDTO> getLugaresByUsuario(@PathVariable("usuarioEmail") String usuarioEmail){
         return lugarService.getLugaresByUsuario(usuarioEmail);
