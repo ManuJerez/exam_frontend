@@ -1,7 +1,7 @@
 package com.ingweb.backend.service;
 
 import com.ingweb.backend.dao.EventoRepository;
-import com.ingweb.backend.model.dto.EventoDTO;
+import com.ingweb.backend.model.dto.LugarDTO;
 import com.ingweb.backend.model.dto.UbicacionDTO;
 import com.ingweb.backend.model.entity.Evento;
 import org.bson.types.ObjectId;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class EventoService extends DTOService<EventoDTO, Evento> {
+public class EventoService extends DTOService<LugarDTO, Evento> {
 
     @Autowired
     private EventoRepository eventoRepository;
@@ -23,33 +23,33 @@ public class EventoService extends DTOService<EventoDTO, Evento> {
     @Autowired
     private FirebaseService firebaseService;
 
-    public EventoDTO getEvento(ObjectId id){
+    public LugarDTO getEvento(ObjectId id){
         Evento evento = eventoRepository.findById(id).orElse(null);
         return evento.toDto();
     }
 
-    public List<EventoDTO> getEventosProximos(String direccion) throws UnsupportedEncodingException {
-        List<EventoDTO> eventos = new ArrayList<>();
+    public List<LugarDTO> getEventosProximos(String direccion) throws UnsupportedEncodingException {
+        List<LugarDTO> eventos = new ArrayList<>();
         String direccionDecoded = URLDecoder.decode(direccion, "UTF-8");
         UbicacionDTO ubicacionDTO = mapaService.getCoordenadas(direccionDecoded);
         List<Evento> eventosProximos = eventoRepository.findByLatAndLonOrderByTimestamp(ubicacionDTO.getLat(), ubicacionDTO.getLon());
         return entidadesADTO(eventosProximos);
     }
 
-    public List<EventoDTO> getEventosByOrganizador(String organizador){
+    public List<LugarDTO> getEventosByOrganizador(String organizador){
         List<Evento> eventosByOrganizador = eventoRepository.findByOrganizador(organizador);
         return entidadesADTO(eventosByOrganizador);
     }
 
-    public EventoDTO crearEvento(EventoDTO eventoDTO) {
+    public LugarDTO crearEvento(LugarDTO lugarDTO) {
         Evento evento = new Evento();
-        evento.setNombre(eventoDTO.getNombre());
-        evento.setTimestamp(eventoDTO.getTimestamp());
-        evento.setLugar(eventoDTO.getLugar());
-        evento.setOrganizador(eventoDTO.getOrganizador());
-        evento.setImagen(eventoDTO.getImagen());
+        evento.setNombre(lugarDTO.getNombre());
+        evento.setTimestamp(lugarDTO.getTimestamp());
+        evento.setLugar(lugarDTO.getNombre());
+        evento.setOrganizador(lugarDTO.getOrganizador());
+        evento.setImagen(lugarDTO.getImagen());
 
-        UbicacionDTO ubicacionDTO = mapaService.getCoordenadas(eventoDTO.getLugar());
+        UbicacionDTO ubicacionDTO = mapaService.getCoordenadas(lugarDTO.getNombre());
 
         evento.setLat(ubicacionDTO.getLat());
         evento.setLon(ubicacionDTO.getLon());
@@ -58,23 +58,23 @@ public class EventoService extends DTOService<EventoDTO, Evento> {
         return evento.toDto();
     }
 
-    public EventoDTO modificarEvento(String nombreEvento, EventoDTO eventoDTO) {
+    public LugarDTO modificarEvento(String nombreEvento, LugarDTO lugarDTO) {
         Evento evento = eventoRepository.findByNombre(nombreEvento);
         if(evento != null){
-            if(eventoDTO.getNombre() != null){
-                evento.setNombre(eventoDTO.getNombre());
+            if(lugarDTO.getNombre() != null){
+                evento.setNombre(lugarDTO.getNombre());
             }
-            if(eventoDTO.getTimestamp() != null){
-                evento.setTimestamp(eventoDTO.getTimestamp());
+            if(lugarDTO.getTimestamp() != null){
+                evento.setTimestamp(lugarDTO.getTimestamp());
             }
-            if(eventoDTO.getLugar() != null){
-                evento.setLugar(eventoDTO.getLugar());
-                UbicacionDTO ubicacionDTO = mapaService.getCoordenadas(eventoDTO.getLugar());
+            if(lugarDTO.getNombre() != null){
+                evento.setLugar(lugarDTO.getNombre());
+                UbicacionDTO ubicacionDTO = mapaService.getCoordenadas(lugarDTO.getNombre());
                 evento.setLat(ubicacionDTO.getLat());
                 evento.setLon(ubicacionDTO.getLon());
             }
-            if(eventoDTO.getImagen() != null){
-                evento.setImagen(eventoDTO.getImagen());
+            if(lugarDTO.getImagen() != null){
+                evento.setImagen(lugarDTO.getImagen());
             }
             eventoRepository.save(evento);
         }else {

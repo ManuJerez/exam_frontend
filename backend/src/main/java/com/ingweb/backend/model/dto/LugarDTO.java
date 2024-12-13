@@ -2,16 +2,10 @@ package com.ingweb.backend.model.dto;
 
 import java.time.LocalDateTime;
 
-public class EventoDTO {
-    private String id;
-    private String nombre;
-    private LocalDateTime timestamp;
+public class VisitaDTO {
     private String lugar;
     private double lat;
     private double lon;
-    private String organizador;
-    private String imagen;
-
     public String getId() {
         return id;
     }
