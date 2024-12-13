@@ -1,20 +1,17 @@
 import React, { useState } from 'react'
 import { useAuth } from '../context/AuthContext';
 import OpenStreetMap from '../components/Map';
-import UploadImage from '../components/UploadImage';
 import { usuarioService } from '../services/usuario';
 import { useNavigate } from 'react-router-dom';
-import ListaEventos from '../components/ListaEventos';
-import Imagen from '../components/Imagen';
 
 const Home = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const verMisEventos = async (user) => {
+  const gotoAddLugar = async (user) => {
     try {
       await usuarioService.autenticarUsuario(user);
-      navigate('/misEventos');
+      navigate('/addLugar');
     } catch (error) {
       alert("Usuario no autenticado");
     }
@@ -22,23 +19,13 @@ const Home = () => {
 
   return (
     <>
-      <h1>Eventual</h1>
+      <h1>Mapa de {user.email}</h1>
       <div className='container'>
-        <ListaEventos />
         <div className='map'>
           <OpenStreetMap />
         </div>
-        <div className='right-container'>
-          
-        </div>
-        <div className='upload'>
-          <UploadImage />
-        </div>
-        <div>
-          <button onClick={() => verMisEventos(user)}>Mis Eventos</button>
-        </div>
-        <Imagen imageUri={'o8nk4pnuexpkhlrjuht7'}/>
       </div>
+      <button onClick={() => gotoAddLugar(user)}>Ver mis eventos</button>
     </>
   )
 }

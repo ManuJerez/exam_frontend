@@ -1,19 +1,17 @@
 package com.ingweb.backend.model.dto;
-
-import org.bson.types.ObjectId;
+import java.util.List;
 
 public class UsuarioDTO {
-    private ObjectId id;
+    private String id;
     private String uid;
-    private String nombre;
     private String email;
-    private String contrasenya;
+    private List<LugarDTO> lugares;
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -25,10 +23,6 @@ public class UsuarioDTO {
         this.uid = uid;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -37,15 +31,11 @@ public class UsuarioDTO {
         this.email = email;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public List<LugarDTO> getLugares() {
+        return lugares;
     }
 
-    public String getContrasenya() {
-        return contrasenya;
-    }
-
-    public void setContrasenya(String contrasenya) {
-        this.contrasenya = contrasenya;
+    public void setLugares(List<LugarDTO> lugares) {
+        this.lugares = lugares;
     }
 }

@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { useAuth } from '../context/AuthContext';
+import { usuarioService } from '../services/usuario';
 
 const OpenStreetMap = () => {
-  const position = [40.712776, -74.005974]; // Nueva York
+  const position = [54.5260, 15.2551];
+  const [lugares, setLugares] = useState([]);
+
+  const {user} = useAuth();
+
+  useEffect(() => {
+    usuarioService.getLugaresByUsuario(user.email, setLugares);
+  }, [user]);
 
   const customIcon = new L.Icon({
     iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
@@ -17,17 +26,19 @@ const OpenStreetMap = () => {
   });
 
   return (
-    <MapContainer center={position} zoom={13} style={{ height: '400px', width: '200%' }}>
+    <MapContainer center={position} zoom={5} style={{ height: '400px', width: '200%' }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
 
-      <Marker position={position} icon={customIcon}>
-        <Popup>
-          ¡Hola! Este es un marcador en OpenStreetMap.
-        </Popup>
-      </Marker>
+      {lugares.map(lugar => (
+        <Marker position={[lugar.lat, lugar.lon]} icon={customIcon}>
+          <Popup>
+            {lugar.nombre}
+          </Popup>
+        </Marker>
+      ))}
     </MapContainer>
   );
 };

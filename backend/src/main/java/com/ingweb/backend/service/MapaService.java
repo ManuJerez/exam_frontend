@@ -1,9 +1,9 @@
 package com.ingweb.backend.service;
 
-import com.ingweb.backend.dao.EventoRepository;
-import com.ingweb.backend.model.dto.EventoDTO;
+import com.ingweb.backend.dao.UsuarioRepository;
+import com.ingweb.backend.model.dto.LugarDTO;
 import com.ingweb.backend.model.dto.UbicacionDTO;
-import com.ingweb.backend.model.entity.Evento;
+import com.ingweb.backend.model.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -17,7 +17,7 @@ import java.util.List;
 public class MapaService {
 
     @Autowired
-    private EventoRepository eventoRepository;
+    private UsuarioRepository usuarioRepository;
 
     public UbicacionDTO getCoordenadas(String direccion){
         RestTemplate restTemplate = new RestTemplate();
@@ -32,12 +32,15 @@ public class MapaService {
         return response.getBody().get(0);
     }
 
-    public void anyadirUbicacion(String nombreEvento, String direccion){
+    public void anyadirUbicacion(String usuarioEmail, String direccion){
         UbicacionDTO ubicacionDTO = getCoordenadas(direccion);
-        Evento evento = eventoRepository.findByNombre(nombreEvento);
+        Usuario usuario = usuarioRepository.findByEmailIgnoreCase(usuarioEmail);
 
-        evento.setLat(ubicacionDTO.getLat());
-        evento.setLon(ubicacionDTO.getLon());
-        eventoRepository.save(evento);
+        LugarDTO lugarDTO = new LugarDTO();
+        lugarDTO.setLat(ubicacionDTO.getLat());
+        lugarDTO.setLon(ubicacionDTO.getLon());
+
+        usuario.getLugares().add(lugarDTO);
+        usuarioRepository.save(usuario);
     }
 }

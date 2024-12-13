@@ -1,11 +1,14 @@
 package com.ingweb.backend.model.entity;
 
 import com.ingweb.backend.model.dto.DTO;
+import com.ingweb.backend.model.dto.LugarDTO;
 import com.ingweb.backend.model.dto.UsuarioDTO;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+
+import java.util.List;
 
 @Document(collection = "Usuario")
 public class Usuario implements DTO<UsuarioDTO> {
@@ -14,12 +17,10 @@ public class Usuario implements DTO<UsuarioDTO> {
 
     @Field("uid")
     private String uid;
-    @Field("nombre")
-    private String nombre;
     @Field("email")
     private String email;
-    @Field("contrasenya")
-    private String contrasenya;
+    @Field("lugares")
+    private List<LugarDTO> lugares;
 
     public ObjectId getId() {
         return id;
@@ -37,14 +38,6 @@ public class Usuario implements DTO<UsuarioDTO> {
         this.uid = uid;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -53,22 +46,22 @@ public class Usuario implements DTO<UsuarioDTO> {
         this.email = email;
     }
 
-    public String getContrasenya() {
-        return contrasenya;
+    public List<LugarDTO> getLugares() {
+        return lugares;
     }
 
-    public void setContrasenya(String contrasenya) {
-        this.contrasenya = contrasenya;
+    public void setLugares(List<LugarDTO> lugares) {
+        this.lugares = lugares;
     }
 
     @Override
     public UsuarioDTO toDto() {
         UsuarioDTO usuarioDTO = new UsuarioDTO();
-        usuarioDTO.setId(this.id);
+        String idString = this.id.toHexString();
+        usuarioDTO.setId(idString);
         usuarioDTO.setUid(this.uid);
-        usuarioDTO.setNombre(this.nombre);
         usuarioDTO.setEmail(this.email);
-        usuarioDTO.setContrasenya(this.contrasenya);
+        usuarioDTO.setLugares(this.lugares);
 
         return usuarioDTO;
     }
